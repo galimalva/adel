@@ -1,17 +1,96 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="عادل سادات" description="عادل سادات،داستان‌نویس" activePage="home">
+
+<section class="hero">
+  <div class="hero-decoration hero-decoration-one"></div>
+  <div class="hero-decoration hero-decoration-two"></div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="normal-word">من</span>
+      <span class="writer-name">عادل سادات</span>
+      <span class="normal-word">هستم</span>
+    </h1>
+    <h2><span></span> داستان‌نویس</h2>
+    <p class="hero-description">داستان‌هایی از جنس سایه و سکوت.<br /></p>
+    <div class="hero-actions">
+      <a href="/works" class="primary-button">مشاهده آثار <span>←</span></a>
+      <a href="/about" class="text-button">درباره من</a>
+    </div>
+    <div class="hero-socials">
+      <span>مرا دنبال کنید</span>
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="Telegram">Telegram</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="portrait-frame">
+      <div class="portrait-number">01</div>
+      <img src="/profile.jpg" alt="عادل سادات" />
+      <div class="portrait-caption">
+        <span>نویسنده</span>
+        <strong>عادل سادات</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+.hero { width: 100%; max-width: var(--max-width); min-height: 100vh; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(330px, .95fr); align-items: center; gap: 70px; padding: 130px 5vw 70px; position: relative; }
+.hero-content { position: relative; z-index: 2; min-width: 0; }
+.hero-title { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 14px; row-gap: 0; font-size: clamp(3rem, 5.4vw, 5.7rem); line-height: 1.35; font-weight: 300; }
+.hero-title .normal-word { color: var(--paper); font-weight: 300; transition: color .4s; }
+.hero-title .writer-name { color: var(--gold); font-weight: 800; transition: color .4s; }
+.hero h2 { margin-top: 20px; display: flex; align-items: center; gap: 10px; font-size: 1rem; font-weight: 400; color: var(--paper-soft); transition: color .4s; }
+.hero-description { max-width: 600px; margin-top: 28px; color: var(--desc-color); font-size: 1.05rem; line-height: 2.15; transition: color .4s; }
+.hero-actions { margin-top: 38px; display: flex; align-items: center; gap: 30px; }
+.primary-button { display: inline-flex; align-items: center; justify-content: center; gap: 25px; background: var(--accent); color: white; padding: 14px 27px; border-radius: 50px; transition: .3s; }
+.primary-button:hover { transform: translateY(-3px); }
+.text-button { border-bottom: 1px solid var(--paper-soft); padding-bottom: 4px; color: var(--paper-soft); }
+.hero-socials { margin-top: 60px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; font-size: .72rem; color: var(--social-color); transition: color .4s; }
+.hero-socials a { color: var(--paper-soft); transition: color .25s; }
+.hero-socials a:hover { color: var(--gold); }
+.hero-visual { position: relative; width: 100%; }
+.portrait-frame { position: relative; width: 100%; max-width: 440px; margin: 0 auto; }
+.portrait-frame::before { content: ""; position: absolute; inset: -18px 22px 22px -18px; border: 1px solid var(--frame-border); z-index: -1; transition: border-color .4s; }
+.portrait-frame img { width: 100%; height: 580px; object-fit: cover; object-position: center; filter: contrast(.97) saturate(.9); }
+.portrait-number { position: absolute; top: 25px; right: -25px; font-size: 5rem; line-height: 1; font-weight: 800; color: var(--number-color); z-index: 2; transition: color .4s; }
+.portrait-caption { position: absolute; bottom: -24px; left: -20px; padding: 14px 24px; background: var(--caption-bg); color: var(--caption-text); display: flex; flex-direction: column; transition: background .4s, color .4s; }
+.portrait-caption span { font-size: .7rem; color: var(--caption-sub); transition: color .4s; }
+.portrait-caption strong { font-size: 1rem; }
+.hero-decoration { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; opacity: .22; transition: opacity .4s; }
+.hero-decoration-one { width: 350px; height: 350px; background: var(--accent); right: -100px; top: 120px; }
+.hero-decoration-two { width: 250px; height: 250px; background: var(--gold); left: -130px; bottom: 20px; opacity: .08; }
+
+@media (max-width: 1150px) {
+  .hero { grid-template-columns: minmax(0,1fr) 390px; gap: 45px; }
+  .hero-title { font-size: clamp(2.7rem, 5vw, 4.5rem); }
+  .portrait-frame img { height: 510px; }
+}
+@media (max-width: 900px) {
+  .hero { min-height: auto; grid-template-columns: 1fr; padding: 110px 6vw 80px; gap: 65px; }
+  .hero-content { order: 1; }
+  .hero-visual { order: 0; }
+  .portrait-frame { max-width: 360px; }
+  .portrait-frame img { height: 470px; }
+  .portrait-caption { left: 0; }
+  .portrait-number { right: 5px; }
+  .hero-title { font-size: clamp(2.8rem, 9vw, 4.2rem); column-gap: 10px; }
+}
+@media (max-width: 520px) {
+  .hero { padding: 105px 22px 65px; gap: 55px; }
+  .portrait-frame { max-width: 310px; }
+  .portrait-frame img { height: 410px; }
+  .hero-title { font-size: 2.55rem; line-height: 1.45; column-gap: 8px; }
+  .hero h2 { margin-top: 14px; font-size: .9rem; }
+  .hero-description { margin-top: 22px; font-size: .95rem; line-height: 2; }
+  .hero-actions { margin-top: 30px; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero-socials { margin-top: 45px; }
+}
+</style>

@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="درباره من | عادل سادات" description="درباره عادل سادات، نویسنده و داستان‌نویس" activePage="about">
+
+  <section class="about-page">
+    <div class="section-heading">
+      <span>01 / درباره من</span>
+      <h1>پشت این <em>کلمات</em> چه کسی است؟</h1>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">من عادل سادات هستم؛ نویسنده‌ای که داستان‌ها را از میان آدم‌ها، خاطره‌ها و لحظه‌های معمولی زندگی پیدا می‌کند.</p>
+        <p>نوشتن برای من فقط کنار هم قرار دادن واژه‌ها نیست. هر داستان تلاشی است برای دیدن جهان از زاویه‌ای تازه، نزدیک شدن به تجربه‌های انسانی و ثبت لحظه‌هایی که شاید در زندگی روزمره به‌سادگی از کنارشان عبور کنیم.</p>
+        <p>این وب‌سایت فضایی است برای معرفی مسیر نویسندگی من، آثار، تجربه‌ها و نوشته‌هایی که در طول این مسیر شکل گرفته‌اند.</p>
+        <a href="/works" class="primary-button">مشاهده آثار <span>←</span></a>
+      </div>
+      <div class="quote-card">
+        <span class="quote-mark">"</span>
+        <blockquote>داستان، راه دیگری برای دیدن همان جهانی است که هر روز از کنارش عبور می‌کنیم.</blockquote>
+        <span class="quote-author">— عادل سادات</span>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+.about-page { max-width: var(--max-width); min-height: 100vh; margin: auto; padding: 170px 5vw 100px; }
+.section-heading span { color: var(--bg); font-size: .78rem; }
+.section-heading h1 { font-size: clamp(2.8rem, 6vw, 5.8rem); line-height: 1.35; font-weight: 300; margin-top: 15px; word-spacing: normal; }
+.section-heading em { font-family: serif; color: var(--text); font-weight: 400; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; margin-top: 80px; align-items: center; }
+.about-text p { color: var(--text-soft); margin-bottom: 25px; max-width: 610px; }
+.about-text .lead { color: var(--text); font-size: 1.35rem; line-height: 2; }
+.primary-button { display: inline-flex; align-items: center; gap: 25px; margin-top: 20px; background: var(--bg); color: var(--text); padding: 14px 25px; border-radius: 50px; transition: .3s; }
+.primary-button:hover { transform: translateY(-3px); }
+.quote-card { background: var(--bg-soft); padding: 60px; min-height: 340px; display: flex; flex-direction: column; justify-content: center; position: relative; border: 1px solid var(--line); }
+.quote-mark { font-family: serif; font-size: 7rem; line-height: .5; color: var(--text); }
+.quote-card blockquote { font-family: serif; font-size: 1.8rem; line-height: 1.9; margin-top: 25px; }
+.quote-author { margin-top: 30px; color: var(--bg); font-size: .8rem; }
+
+@media (max-width: 900px) {
+  .about-page { padding: 130px 6vw 80px; }
+  .about-grid { grid-template-columns: 1fr; gap: 50px; margin-top: 50px; }
+  .quote-card { padding: 35px; min-height: 280px; }
+}
+@media (max-width: 520px) {
+  .section-heading h1 { font-size: 2.7rem; }
+  .about-text .lead { font-size: 1.1rem; }
+  .quote-card blockquote { font-size: 1.45rem; }
+}
+</style>

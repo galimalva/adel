@@ -1,0 +1,273 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  activePage?: string;
+}
+
+const { title, description = "", activePage = "" } = Astro.props;
+
+const links = [
+  { href: "/", label: "خانه", id: "home" },
+  { href: "/about", label: "درباره من", id: "about" },
+  { href: "/works", label: "آثار", id: "works" },
+  { href: "/contact", label: "ارتباط", id: "contact" },
+];
+---
+
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+</head>
+
+<body>
+
+<header class="navbar">
+  <a href="/" class="brand">
+    <span class="brand-dot"></span>
+    عادل سادات
+  </a>
+
+  <nav class="desktop-nav">
+    {links.map(link => (
+      <a href={link.href} class={activePage === link.id ? "active" : ""}>
+        {link.label}
+      </a>
+    ))}
+  </nav>
+
+  <button class="sky-toggle" id="theme-toggle" type="button" aria-label="تغییر حالت روز و شب">
+    <span class="sky-toggle-inner">
+      <span class="sun"></span>
+      <span class="moon"><span class="moon-cut"></span></span>
+      <span class="cloud cloud-one"></span>
+      <span class="cloud cloud-two"></span>
+      <span class="cloud cloud-three"></span>
+      <span class="star star-one"></span>
+      <span class="star star-two"></span>
+      <span class="star star-three"></span>
+      <span class="toggle-ball"></span>
+    </span>
+  </button>
+
+  <button class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  {links.map(link => (
+      <a href={link.href} class={activePage === link.id ? "active" : ""}>
+        {link.label}
+      </a>
+  ))}
+</div>
+
+<main>
+  <slot />
+</main>
+
+</body>
+</html>
+
+<style is:global>
+
+:root {
+  --bg: #005F73;
+  --text: #D4AF37;
+  --text-soft: #e0c35a;
+  --bg-soft: #007a8c;
+  --line: rgba(212,175,55,.2);
+  --navbar-bg: rgba(0,95,115,.92);
+  --mobile-bg: rgba(0,95,115,.98);
+  --desc-color: #e0c35a;
+  --caption-bg: #D4AF37;
+  --caption-text: #005F73;
+  --caption-sub: #005F73;
+  --number-color: rgba(212,175,55,.12);
+  --social-color: #c4a632;
+  --frame-border: rgba(212,175,55,.35);
+  --max-width: 1280px;
+}
+
+html[data-theme="light"] {
+  --bg: #D4AF37;
+  --text: #005F73;
+  --text-soft: #007a8c;
+  --bg-soft: #c49a28;
+  --line: rgba(0,95,115,.15);
+  --navbar-bg: rgba(212,175,55,.92);
+  --mobile-bg: rgba(212,175,55,.98);
+  --desc-color: #007a8c;
+  --caption-bg: #005F73;
+  --caption-text: #D4AF37;
+  --caption-sub: #7ab8c4;
+  --number-color: rgba(0,95,115,.08);
+  --social-color: #007a8c;
+  --frame-border: rgba(0,95,115,.3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Vazirmatn", "IRANSansX", Tahoma, sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+  transition: background .5s ease, color .5s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+img { width: 100%; display: block; }
+
+.navbar {
+  position: fixed; top: 0; right: 0; left: 0;
+  height: 86px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 25px; padding: 0 5vw;
+  z-index: 1000;
+  background: var(--navbar-bg);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+  transition: background .5s ease, border-color .5s ease;
+}
+
+.brand { display: flex; align-items: center; gap: 11px; font-weight: 800; white-space: nowrap; }
+.brand-dot { width: 9px; height: 9px; background: var(--text); border-radius: 50%; flex-shrink: 0; transition: background .5s ease; }
+
+.desktop-nav { display: flex; align-items: center; gap: 30px; }
+.desktop-nav a { font-size: .87rem; color: var(--text-soft); white-space: nowrap; transition: color .25s; }
+.desktop-nav a:hover, .desktop-nav a.active { color: var(--text); }
+
+.sky-toggle { border: 0; background: transparent; padding: 0; cursor: pointer; flex-shrink: 0; }
+.sky-toggle-inner {
+  position: relative; display: block; width: 104px; height: 48px;
+  overflow: hidden; border-radius: 999px;
+  background: linear-gradient(180deg, #79b9e9 0%, #a9d8f5 100%);
+  border: 1px solid rgba(234,241,246,.8);
+  box-shadow: inset 0 0 18px rgba(255,255,255,.18), 0 6px 18px rgba(0,0,0,.28), 0 0 14px rgba(120,153,180,.25);
+  transition: background .55s ease, box-shadow .55s ease;
+}
+.toggle-ball {
+  position: absolute; z-index: 10; top: 5px; right: 5px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff, #eaf1f6);
+  box-shadow: 0 3px 12px rgba(0,0,0,.25), 0 0 13px rgba(255,255,255,.65);
+  transition: transform .65s cubic-bezier(.34,1.56,.64,1);
+}
+.sun {
+  position: absolute; top: 11px; left: 13px; width: 25px; height: 25px;
+  border-radius: 50%; background: #ffe783;
+  box-shadow: 0 0 14px rgba(255,231,131,.9);
+  transition: opacity .4s ease, transform .5s ease;
+}
+.moon {
+  position: absolute; top: 10px; left: 14px; width: 26px; height: 26px;
+  border-radius: 50%; background: #ffe986;
+  opacity: 0; transform: translateY(8px) scale(.7);
+  transition: opacity .45s ease, transform .55s ease;
+}
+.moon-cut {
+  position: absolute; top: -4px; right: -4px; width: 26px; height: 26px;
+  border-radius: 50%; background: #173B63;
+}
+.cloud {
+  position: absolute; z-index: 3; bottom: 3px; height: 9px;
+  border-radius: 20px; background: rgba(234,241,246,.95);
+  transition: transform .55s ease, opacity .55s ease;
+}
+.cloud::before, .cloud::after { content: ""; position: absolute; bottom: 0; border-radius: 50%; background: inherit; }
+.cloud::before { width: 13px; height: 13px; left: 5px; }
+.cloud::after { width: 16px; height: 16px; left: 15px; }
+.cloud-one { width: 36px; left: 30px; }
+.cloud-two { width: 30px; left: 52px; bottom: 7px; opacity: .85; }
+.cloud-three { width: 26px; left: 10px; opacity: .75; }
+.star {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: #EAF1F6; opacity: 0;
+  box-shadow: 0 0 5px rgba(234,241,246,.9);
+  transition: opacity .5s ease;
+}
+.star-one { top: 10px; left: 48px; }
+.star-two { top: 17px; left: 63px; }
+.star-three { top: 8px; left: 77px; }
+
+html[data-theme="light"] .sky-toggle-inner {
+  background: linear-gradient(180deg, #142B4A 0%, #173B63 55%, #315B7D 100%);
+  box-shadow: inset 0 0 20px rgba(49,91,125,.3), 0 6px 18px rgba(0,0,0,.35), 0 0 18px rgba(23,59,99,.35);
+}
+html[data-theme="light"] .toggle-ball { transform: translateX(-56px); }
+html[data-theme="light"] .sun { opacity: 0; transform: translateY(-8px) scale(.6); }
+html[data-theme="light"] .moon { opacity: 1; transform: translateY(0) scale(1); }
+html[data-theme="light"] .cloud { transform: translateY(4px); opacity: .75; }
+html[data-theme="light"] .star { opacity: 1; }
+
+.menu-toggle {
+  display: none; width: 44px; height: 44px;
+  border: 1px solid var(--line); background: transparent;
+  border-radius: 50%; align-items: center; justify-content: center;
+  flex-direction: column; gap: 5px; cursor: pointer;
+}
+.menu-toggle span { width: 18px; height: 1px; background: var(--text); }
+
+.mobile-menu {
+  position: fixed; top: 72px; right: 0; left: 0; z-index: 999;
+  display: none; flex-direction: column;
+  padding: 20px 6vw 25px;
+  background: var(--mobile-bg); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.mobile-menu a { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--text-soft); font-size: .95rem; }
+.mobile-menu a:last-child { border-bottom: 0; }
+.mobile-menu a:hover, .mobile-menu a.active { color: var(--text); }
+.mobile-menu.open { display: flex; }
+
+@media (max-width: 900px) {
+  .navbar { height: 72px; padding: 0 6vw; }
+  .desktop-nav { display: none; }
+  .menu-toggle { display: flex; }
+}
+
+</style>
+
+<script is:inline>
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }
+
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("#theme-toggle");
+    if (!button) return;
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  });
+
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = mobileMenu?.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  });
+
+  mobileMenu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      menuToggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>
